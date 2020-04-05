@@ -1,2 +1,0 @@
-# PeriodicTable
-Created with CodeSandbox
