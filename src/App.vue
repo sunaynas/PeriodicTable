@@ -1,17 +1,28 @@
 <template>
   <div id="app">
     <!--img width="25%" src="./assets/logo.png"-->
-    <pt-middle/>
+    <pt-middle :periodicTableData="periodicTableData.data.elements"/>
   </div>
 </template>
 
 <script>
 import PtMiddle from "./components/PtMiddle";
+import axios from "axios";
 
 export default {
   name: "App",
+  props: {
+    periodicTableData: Object
+  },
   components: {
     "pt-middle": PtMiddle
+  },
+  mounted() {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json"
+      )
+      .then(response => (this.periodicTableData = response));
   }
 };
 </script>

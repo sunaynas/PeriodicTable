@@ -27,22 +27,27 @@ export default {
   data() {
     return {
       configStage: {
-        width: 120,
+        width: 150,
         height: 150,
         x: 5,
-        y: 0
+        y: 0,
+        scaleX: 0.5,
+        scaleY: 0.5
       },
       configRect: {
         x: 0,
         y: 0,
         width: 110,
         height: 140,
-        stroke: "#000066",
+        stroke: "#000033",
         strokeWidth: 1,
         fill: this.clr,
         cornerRadius: 20,
         shadowEnabled: "true",
-        shadowColor: "#808080"
+        shadowColor: "#001f4d",
+        shadowOffsetX: 7,
+        shadowOffsetY: 7,
+        shadowBlur: 3
       },
       configSymbol: {
         text: this.sym,
@@ -50,7 +55,7 @@ export default {
         width: 110,
         align: "center",
         fontStyle: "bold",
-        fontFamily: "'Monaco'",
+        fontFamily: "'Quicksand'",
         y: 37
       },
       configNumber: {
@@ -59,13 +64,15 @@ export default {
         width: 110,
         align: "left",
         y: 9,
+        fontFamily: "Quicksand",
         x: 10
       },
       configName: {
         text: this.txt,
-        fontSize: 23,
+        fontSize: 18,
         width: 110,
         align: "center",
+        fontFamily: "Quicksand",
         y: 87
       },
       configMass: {
@@ -73,6 +80,7 @@ export default {
         width: 110,
         align: "center",
         y: 115,
+        fontFamily: "Quicksand",
         fontSize: 16
       }
     };
