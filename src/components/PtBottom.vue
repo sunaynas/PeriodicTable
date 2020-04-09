@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <pt-mid :periodicTableData="periodicTableData"/>
+  <div class="pt-bottom-grid">
+    <div></div>
+    <pt-bottom :periodicTableData="periodicTableData"/>
   </div>
 </template>
 
 <script>
-// import Vue from "vue";
-// import Element from "./Element";
 let colorTable = {
   "alkali metal": "#ff6666",
   "alkaline earth metal": "#ffa64d",
@@ -14,25 +13,22 @@ let colorTable = {
   metalloid: "#33cc33",
   "polyatomic nonmetal": "#33ccff",
   "diatomic nonmetal": "#3399ff",
-  "noble gas": "#c266ff"
+  "noble gas": "#c266ff",
+  lanthanide: "#ffb3ff",
+  actinide: "#ff66cc"
 };
 let colorOverride = {
-  Po: "metalloid",
-  Lv: "post-transition metal",
-  Nh: "post-transition metal",
-  Mc: "post-transition metal",
-  At: "diatomic nonmetal",
-  Ts: "diatomic nonmetal",
-  Og: "noble gas"
+  H: "polyatomic nonmetal"
 };
 function getColor(pt) {
   let cat = colorOverride[pt.symbol] || pt.category;
   return colorTable[cat] || "#ffff66";
 }
-let ptmid = {
+let ptbottom = {
   render: function(createElement) {
     let r = [];
-    for (let i = 18; i <= 55; i = i + 1) {
+
+    for (let i = 56; i <= 70; i = i + 1) {
       let pt = this.periodicTableData[i];
       r.push(
         createElement("pt-element", {
@@ -46,43 +42,8 @@ let ptmid = {
         })
       );
     }
-    r.push(
-      createElement("pt-element", {
-        props: {
-          sym: "",
-          atn: "57-71",
-          txt: "",
-          mss: "",
-          clr: "#ffb3ff"
-        }
-      })
-    );
-    for (let i = 71; i <= 87; i = i + 1) {
-      let pt = this.periodicTableData[i];
-      r.push(
-        createElement("pt-element", {
-          props: {
-            sym: pt.symbol,
-            atn: "" + pt.number,
-            txt: pt.name,
-            mss: "" + pt.atomic_mass,
-            clr: getColor(pt)
-          }
-        })
-      );
-    }
-    r.push(
-      createElement("pt-element", {
-        props: {
-          sym: "",
-          atn: "89-103",
-          txt: "",
-          mss: "",
-          clr: "#ff66cc"
-        }
-      })
-    );
-    for (let i = 103; i <= 117; i = i + 1) {
+
+    for (let i = 88; i <= 102; i = i + 1) {
       let pt = this.periodicTableData[i];
       r.push(
         createElement("pt-element", {
@@ -99,7 +60,7 @@ let ptmid = {
     return createElement(
       "div", // tag name
       {
-        class: "pt-middle"
+        class: "pt-bottom"
       },
       r
     );
@@ -113,7 +74,7 @@ let ptmid = {
 };
 
 export default {
-  name: "PtMiddle",
+  name: "PtBottom",
   props: {
     periodicTableData: {
       type: Array,
@@ -121,7 +82,7 @@ export default {
     }
   },
   components: {
-    "pt-mid": ptmid
+    "pt-bottom": ptbottom
   },
   data() {
     return {
@@ -137,11 +98,18 @@ export default {
 </script>
 
 <style scoped>
-.pt-middle {
+.pt-bottom-grid {
+  display: grid;
+  grid-template-columns: 130px 100px;
+}
+.pt-bottom {
   display: grid;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  grid-template-columns: repeat(18, 55px);
-  grid-template-rows: repeat(4, 70px);
+  grid-template-columns: repeat(15, 55px);
+  grid-template-rows: repeat(2, 70px);
+}
+.not-visible:true {
+  visibility: false;
 }
 </style>
