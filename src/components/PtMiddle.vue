@@ -5,8 +5,6 @@
 </template>
 
 <script>
-// import Vue from "vue";
-// import Element from "./Element";
 let colorTable = {
   "alkali metal": "#ff6666",
   "alkaline earth metal": "#ffa64d",
@@ -29,6 +27,7 @@ function getColor(pt) {
   let cat = colorOverride[pt.symbol] || pt.category;
   return colorTable[cat] || "#ffff66";
 }
+
 let ptmid = {
   render: function(createElement) {
     let r = [];
@@ -111,6 +110,7 @@ let ptmid = {
     }
   }
 };
+
 
 export default {
   name: "PtMiddle",
