@@ -3,6 +3,7 @@
     <!--img width="25%" src="./assets/logo.png"-->
     <div class="pt-top">
       <pt-left-top :periodicTableData="periodicTableData.data.elements"/>
+      <h2> The Periodic Table of Elements </h2>
       <pt-right-top :periodicTableData="periodicTableData.data.elements"/>
     </div>
     <pt-middle :periodicTableData="periodicTableData.data.elements"/>
@@ -26,7 +27,6 @@ export default {
     periodicTableData: Object
   },
   components: {
-    "pt-element": Element,
     "pt-middle": PtMiddle,
     "pt-left-top": PtLeftTop,
     "pt-right-top": PtRightTop,
@@ -50,7 +50,7 @@ export default {
 }
 .pt-top {
   display: grid;
-  grid-template-columns: 780px 600px;
+  grid-template-columns: 200px 580px 600px;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

@@ -89,25 +89,26 @@ export default {
     };
   },
   methods: {
-    handleMouseMove(event) {
+    handleMouseMove(event) { // eslint-disable-line
       if (!this.inZoomMode) {
-        this.configStage.scaleX = 0.75;
-        this.configStage.scaleY = 0.75;
-        this.configStage.offsetX = 35;
-        this.configStage.offsetY = 35;
-        this.configStage.width = 112.5;
-        this.configStage.height = 112.5;
+
+        this.configStage.scaleX = 0.6;
+        this.configStage.scaleY = 0.6;
+        this.configStage.offsetX = 5;
+        this.configStage.offsetY = 5;
+        this.configStage.width = this.configStage.scaleX * 150;
+        this.configStage.height = this.configStage.scaleY * 150;
         this.$el.style.zIndex = 1;
         this.inZoomMode = true;
-      }
+      } 
     },
-    handleMouseOut(event) {
+    handleMouseOut(event) { // eslint-disable-line
       this.configStage.scaleX = 0.5;
       this.configStage.scaleY = 0.5;
       this.configStage.offsetX = 0;
       this.configStage.offsetY = 0;
-      this.configStage.width = 75;
-      this.configStage.height = 75;
+      this.configStage.width = this.configStage.scaleX * 150;
+      this.configStage.height = this.configStage.scaleY * 150;
       this.$el.style.zIndex = 100;
       this.inZoomMode = false;
     }
