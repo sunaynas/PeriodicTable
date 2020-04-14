@@ -1,37 +1,29 @@
 <template>
-  <div id="app" class="pt-all">
-    <!--img width="25%" src="./assets/logo.png"-->
-    <div class="pt-top">
-      <pt-left-top :periodicTableData="periodicTableData.data.elements"/>
-      <h2> The Periodic Table of Elements </h2>
-      <pt-right-top :periodicTableData="periodicTableData.data.elements"/>
-    </div>
-    <pt-middle :periodicTableData="periodicTableData.data.elements"/>
-    <pt-bottom :periodicTableData="periodicTableData.data.elements"/>
-  </div>
+<router-view/>
 </template>
 
 <script>
-import Vue from "vue";
-import PtMiddle from "./components/PtMiddle";
-import PtLeftTop from "./components/PtLeftTop";
-import Element from "./components/Element";
-import PtRightTop from "./components/PtRightTop";
-import PtBottom from "./components/PtBottom";
+import VueRouter from "vue-router";
+import PtMain from "./components/main/PtMain";
+import PtGame from "./components/game/PtGame";
 import axios from "axios";
 
-Vue.component("pt-element", Element);
+const router = new VueRouter({
+  routes: [
+    { path: '/ptGame', component: PtGame },
+     { path: '/ptMain', component: PtMain },
+     { path: '/', redirect: '/ptMain' }
+  ]});
+router.replace()
 export default {
   name: "App",
+  router,
   props: {
     periodicTableData: Object
   },
-  components: {
-    "pt-middle": PtMiddle,
-    "pt-left-top": PtLeftTop,
-    "pt-right-top": PtRightTop,
-    "pt-bottom": PtBottom
-  },
+/*  components: {
+    
+  },*/
   mounted() {
     axios
       .get(
@@ -43,17 +35,8 @@ export default {
 </script>
 
 <style>
-.pt-all {
-  display: grid;
-  grid-row-gap: 10px;
-  grid-template-rows: 230px 350px 100px;
-}
-.pt-top {
-  display: grid;
-  grid-template-columns: 200px 580px 600px;
-}
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif, "Quicksand";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

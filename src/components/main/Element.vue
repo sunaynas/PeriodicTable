@@ -13,7 +13,7 @@
     </div>
   </div>
 </template>
-
+//
 <script>
 export default {
   name: "Element",
@@ -23,7 +23,8 @@ export default {
     txt: String,
     mss: String,
     clr: String,
-    zoomOnHover: Boolean
+    zoomOnHover: Boolean,
+    config: Object
   },
   data() {
     return {
@@ -35,7 +36,7 @@ export default {
         scaleX: 0.5,
         scaleY: 0.5,
         offsetX: 0,
-        offsetY: 0
+        offsetY: -7
       },
       configRect: {
         x: 0,
@@ -44,7 +45,7 @@ export default {
         height: 140,
         stroke: "#000033",
         strokeWidth: 1,
-        fill: this.clr,
+        fill: this.clr || this.config.clr,
         cornerRadius: 15,
         shadowEnabled: "true",
         shadowColor: "#001f4d",
@@ -53,7 +54,7 @@ export default {
         shadowBlur: 3
       },
       configSymbol: {
-        text: this.sym,
+        text: this.sym || this.config.sym,
         fontSize: 50,
         width: 110,
         align: "center",
@@ -62,7 +63,7 @@ export default {
         y: 37
       },
       configNumber: {
-        text: this.atn,
+        text: this.atn || this.config.atn,
         fontSize: 24,
         width: 110,
         align: "left",
@@ -71,7 +72,7 @@ export default {
         x: 10
       },
       configName: {
-        text: this.txt,
+        text: this.txt || this.config.txt,
         fontSize: 18,
         width: 110,
         align: "center",
@@ -79,7 +80,7 @@ export default {
         y: 87
       },
       configMass: {
-        text: this.mss,
+        text: this.mss || this.config.mss,
         width: 110,
         align: "center",
         y: 115,
@@ -95,7 +96,7 @@ export default {
         this.configStage.scaleX = 0.6;
         this.configStage.scaleY = 0.6;
         this.configStage.offsetX = 5;
-        this.configStage.offsetY = 5;
+        this.configStage.offsetY = -2;
         this.configStage.width = this.configStage.scaleX * 150;
         this.configStage.height = this.configStage.scaleY * 150;
         this.$el.style.zIndex = 1;
@@ -106,7 +107,7 @@ export default {
       this.configStage.scaleX = 0.5;
       this.configStage.scaleY = 0.5;
       this.configStage.offsetX = 0;
-      this.configStage.offsetY = 0;
+      this.configStage.offsetY = -7;
       this.configStage.width = this.configStage.scaleX * 150;
       this.configStage.height = this.configStage.scaleY * 150;
       this.$el.style.zIndex = 100;
