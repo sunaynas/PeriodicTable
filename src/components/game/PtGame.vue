@@ -3,29 +3,27 @@
     <div class="PtGameBoxes">
       <div class="pt-game-box-elements-c">
         <draggable v-model="gameBoard" class="row wrap pt-game-box-elements pt-game-box">
-          <v-flex v-for="boxItm in gameBoard" :key="boxItm.idx" :name="boxItm.title">
+          <div v-for="boxItm in gameBoard" :key="boxItm.idx" :name="boxItm.title">
             <draggable
               :list="boxItm.elems"
-              :group="{name: 'boxItm' }"
+              :group="{name: 'boxItm.title' }"
               class="element-groups"
+              :id="boxItm.title"
               :title="boxItm.title"
-              :component-data="getElementData()"
               @change="log"
-              @move="log"
+              :component-data="getElementData()"
             >
               <div v-for="el in boxItm.elems" :key="el" :name="el" @change="log">
                 <pt-auto-element
                   v-bind:atn="el"
                   v-bind:key="el"
+                  v-bind:id="el"
                   clr="white"
                   v-bind:periodicTableData="periodicTableData.data.elements"
-                  @change="log"
-                  @end="log"
-                  @move="log"
                 />
               </div>
             </draggable>
-          </v-flex>
+          </div>
         </draggable>
       </div>
       <div class="pt-game-box-container">
@@ -38,9 +36,19 @@
             v-bind:width="boxItm.bwidth"
             v-bind:height="boxItm.bheight"
           ></pt-box>
+      <h2 class="blurb">
+        How to play:
+        <li> drag elements to their correct catagory </li>
+        <li> for correct answers, the score goes up 10 points </li>
+        <li> if not, then score goes down ten points </li>
+        <li> if you complete the game, just reload to play again </li>
+      </h2>
+
         </div>
       </div>
+      <div>
       <h1 class="score">SCORE: {{score}}</h1>
+      </div>
     </div>
   </div>
 </template>>
@@ -51,6 +59,38 @@ import PtBox from "./PtBox";
 import axios from "axios";
 import draggable from "vuedraggable";
 
+function ptType(atnStr) {
+  let atn = parseInt(atnStr, 10) + 1;
+  let NonMetals = [
+    1,
+    2,
+    6,
+    7,
+    8,
+    9,
+    10,
+    15,
+    16,
+    17,
+    18,
+    34,
+    35,
+    36,
+    53,
+    54,
+    85,
+    86
+  ];
+  let Metalloids = [5, 14, 32, 33, 51, 52, 84];
+  if (NonMetals.indexOf(atn) !== -1) {
+    return "Nonmetals";
+  }
+  if (Metalloids.indexOf(atn) !== -1) {
+    return "Metalloids";
+  }
+  return "Metals";
+}
+
 export default {
   name: "PtGame",
   components: {
@@ -60,7 +100,7 @@ export default {
   },
   data() {
     return {
-      score: 66,
+      score: 0,
       gameBoard: [
         {
           index: 1,
@@ -80,13 +120,20 @@ export default {
         },
         {
           index: 3,
-          title: "Non-Metals",
+          title: "Nonmetals",
           clr: "#ff9aa2",
           bwidth: 210,
           bheight: 280,
           elems: []
         },
-        { index: 4, title: "Selection", bwidth: 350, bheight: 180, clr:"#99ff99", elems: [] }
+        {
+          index: 4,
+          title: "Selection",
+          bwidth: 350,
+          bheight: 180,
+          clr: "#99ff99",
+          elems: []
+        }
       ]
     };
   },
@@ -104,7 +151,36 @@ export default {
       };
     },
     log: function(evt) {
-      console.log("---ptg---", evt);
+
+    if (evt.type === "move") {
+        let elemId = evt.dragged.firstChild.id;
+        console.log(
+          " Detected Move for ",
+          elemId, " Type[", ptType(elemId),
+          "] from = ",
+          evt.from.id,
+          "  To = " + evt.to.id
+        );
+      }
+        /*
+        if (ptType(elemId)==evt.to.id) {
+          this.score=this.score+10
+        } else {
+          this.score=this.score-10;
+        }*/
+        let score = 0
+        for(let i = 0 ; i < 3; ++i) {
+          for(let idx in this.gameBoard[i].elems) {
+            let e = this.gameBoard[i].elems[idx]
+            if (ptType(e) == this.gameBoard[i].title) {
+              score = score + 10;
+            } else {
+              score = score -  10;
+            }
+          }
+        }
+        this.score = score;
+
     }
   },
   mounted() {
@@ -117,7 +193,7 @@ export default {
       let newLength = fruits.push(Math.floor(Math.random() * 117));
     }
 
-    this.gameBoard[3].elems = fruits
+    this.gameBoard[3].elems = fruits;
     axios
       .get(
         "https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json"
@@ -129,9 +205,16 @@ export default {
 
 
 <style scoped>
+.blurb {
+  width: 550px;
+  margin-left: 150px;
+  font-size: 24px;
+  margin-top: 30px
+}
 .score {
   text-align: center;
   width: 300px;
+  height: 280px;
 }
 .pt-game-box-container {
   position: absolute;
@@ -160,7 +243,7 @@ export default {
   left: 10px;
   z-index: 100;
 }
-[name*="Metal"] .element-groups {
+[name*="etal"] .element-groups {
   position: relative;
   display: grid;
   grid-column-gap: 10px;

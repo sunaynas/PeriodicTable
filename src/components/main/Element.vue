@@ -27,6 +27,18 @@ export default {
     config: Object
   },
   data() {
+    let clr = this.clr;
+    let sym = this.sym;
+    let atn = this.atn;
+    let txt = this.txt;
+    let mss = this.mss;
+    if (this.config) {
+      clr = this.config.clr;
+      sym = this.config.sym;
+      atn = this.config.atn;
+      txt = this.config.txt;
+      mss = this.config.mss;
+    }
     return {
       configStage: {
         width: 150,
@@ -45,7 +57,7 @@ export default {
         height: 140,
         stroke: "#000033",
         strokeWidth: 1,
-        fill: this.clr || this.config.clr,
+        fill: clr,
         cornerRadius: 15,
         shadowEnabled: "true",
         shadowColor: "#001f4d",
@@ -54,7 +66,7 @@ export default {
         shadowBlur: 3
       },
       configSymbol: {
-        text: this.sym || this.config.sym,
+        text: sym,
         fontSize: 50,
         width: 110,
         align: "center",
@@ -63,7 +75,7 @@ export default {
         y: 37
       },
       configNumber: {
-        text: this.atn || this.config.atn,
+        text: atn,
         fontSize: 24,
         width: 110,
         align: "left",
@@ -72,7 +84,7 @@ export default {
         x: 10
       },
       configName: {
-        text: this.txt || this.config.txt,
+        text: txt,
         fontSize: 18,
         width: 110,
         align: "center",
@@ -80,7 +92,7 @@ export default {
         y: 87
       },
       configMass: {
-        text: this.mss || this.config.mss,
+        text: mss,
         width: 110,
         align: "center",
         y: 115,
