@@ -7,5 +7,3 @@ Its a small web app writen in vue.js (which I just learned (with lots of help))
 And it has a periodic table (color coded), as well as a game (kinda bad ngl)
 ## App Address
 https://sunaynas.github.io/PeriodicTable/
-
-## Hi Ms. Fried...
